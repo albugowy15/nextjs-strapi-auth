@@ -1,5 +1,21 @@
-import { NextPage } from "next";
+import { NextPage, NextPageContext } from "next";
 import { useState } from "react";
+import nookies from "nookies";
+
+export const getServerSideProps = async (context: NextPageContext) => {
+  const cookies = nookies.get(context);
+  if (cookies.token) {
+    //context.res.writeHead(302, {Location: '/dashboard'})
+    return {
+      redirect: {
+        destination: "/dashboard",
+      },
+    };
+  }
+  return {
+    props: {},
+  };
+};
 
 const register: NextPage = () => {
   const [field, setField] = useState<Object>({});
