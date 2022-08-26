@@ -1,6 +1,7 @@
 import { NextPage, NextPageContext } from "next";
 import { useState } from "react";
 import nookies from "nookies";
+import { StrapiResponse } from "../types/strapi";
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = nookies.get(context);
@@ -49,7 +50,8 @@ const register: NextPage = () => {
       }
     );
 
-    const res = await req.json();
+    const res: StrapiResponse = await req.json();
+    console.log(res);
     if (res.jwt) {
       setField({});
       setSuccess(true);

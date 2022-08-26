@@ -5,7 +5,6 @@ import nookies from "nookies";
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = nookies.get(context);
   if (!cookies.token) {
-    //context.res.writeHead(302, {Location: '/dashboard'})
     return {
       redirect: {
         destination: "/login",

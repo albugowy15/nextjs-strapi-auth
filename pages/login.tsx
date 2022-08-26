@@ -1,8 +1,9 @@
-import { GetServerSideProps, NextPage, NextPageContext } from "next";
+import { NextPage, NextPageContext } from "next";
 import Link from "next/link";
 import { useState } from "react";
 import nookies from "nookies";
 import Router from "next/router";
+import { StrapiResponse } from "../types/strapi";
 
 export const getServerSideProps = async (context: NextPageContext) => {
   const cookies = nookies.get(context);
@@ -47,7 +48,7 @@ const login: NextPage = () => {
       body: JSON.stringify(field),
     });
 
-    const res = await req.json();
+    const res: StrapiResponse = await req.json();
     if (res.jwt) {
       nookies.set(null, "token", res.jwt);
       Router.replace("/dashboard");

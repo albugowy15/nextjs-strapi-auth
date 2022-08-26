@@ -1,5 +1,6 @@
 import { GetServerSidePropsContext } from "next";
 import nookies from "nookies";
+import { StrapiResponse } from "../../types/strapi";
 
 export const getServerSideProps = async ({
   params,
@@ -9,7 +10,7 @@ export const getServerSideProps = async ({
   const req = await fetch(
     `${process.env.NEXT_PUBLIC_URL}/api/auth/${params?.provider}/callback?access_token=${query.access_token}`
   );
-  const res = await req.json();
+  const res: StrapiResponse = await req.json();
 
   if (res.jwt) {
     nookies.set(context, "token", res.jwt, {
